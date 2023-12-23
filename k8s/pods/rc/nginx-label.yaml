@@ -1,0 +1,31 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod1
+  labels:
+    app: nginx
+    ver: "1.23"
+spec:
+  containers:
+    - image: nginx:1.23
+      name: nginx-container1
+      ports:
+        - containerPort: 80
+          protocol: TCP
+---
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nginx-pod2
+  labels:
+    app: nginx
+    ver: "1.24"
+spec:
+  containers:
+    - image: nginx:1.24
+      name: nginx-container2
+      ports:
+        - containerPort: 80
+          protocol: TCP
