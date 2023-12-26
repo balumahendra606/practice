@@ -1,0 +1,30 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata: 
+  name: cronjob
+spec:
+  schedule: "* 23 * * *"
+  jobTemplate:
+    metadata:
+      name: cronjob
+      labels:
+        purpose: execution
+      namespace: my-namespace
+    spec:
+      metadata:
+        name: cronjob
+        selector:
+          matchLabels:
+            purpose: execution
+        template:
+          metadata:
+            name: cronjob
+            spec:
+              containers:
+                - image: alpine:3
+                  name: download
+                  command:
+                    - wget
+                    - https://referenceapplicationskhaja.s3.us-west-2.amazonaws.com/spring-petclinic-2.4.2.jar 
+              restartPolicy: OnFailure
