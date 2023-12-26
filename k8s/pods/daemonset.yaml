@@ -1,0 +1,25 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: DaemonSet
+spec:
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: elk
+      purpose: logs
+  template:
+    metadata:
+      name: elk-container
+      labels:
+        app: elk
+        purpose: logs
+    spec:
+      containers:
+        - image: nginx:1.23
+          name: nginx-container
+          ports:
+            - containerPort: 80
+              protocol: TCP
+      restartPolicy: Never
