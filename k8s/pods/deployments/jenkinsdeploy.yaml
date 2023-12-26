@@ -9,7 +9,6 @@ spe:
   selector:
     matchLabels:
       app: jenkins
-      version: "1.625.1"
   strategy:
     type: RollingUpdate
     rollingUpdate:
@@ -20,10 +19,10 @@ spe:
       name: jenkins-deploy
       labels:
         app: jenkins
-        version: "1.625.1"
+        version: "2.60.3"
     spec:
       containers:
-        - image: jenkins:1.625.1
+        - image: jenkins:2.60.3
           name: jenkins-container
           ports:
             - containerPort: 8080
@@ -49,5 +48,5 @@ spec:
     - name: webport
       targetPort: 8080
       port: 32000
-      
+
                  
