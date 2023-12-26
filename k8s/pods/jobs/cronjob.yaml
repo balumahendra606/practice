@@ -1,0 +1,32 @@
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: cron-demo-job
+spec:
+  schedule: "* 11 * * 1-5"
+  jobTemplate:
+    metadata:
+      name: cron-job
+      labels:
+        purpose: execution
+      namespace: my-namespace
+    spec:
+      backoffLimit: 3
+      selector:
+        matchLabels:
+          purpose: execution
+      template:
+        metadata:
+          name: cron-job
+          labels:
+            purpose: execution
+          namespace: my-namespace
+        spec:
+          containers:
+            - image: alpine
+              name: cron-pod
+              command:
+                - sleep
+                - 1d
+          restartPolicy: Never
