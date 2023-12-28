@@ -1,0 +1,10 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hai-configmap
+data:
+  log_level: debug
+  retries: "3"
+  timeout: "3s"
+  

@@ -1,0 +1,19 @@
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: config_mounts
+spec:
+  containers:
+    - image: alpine:3
+      name: alpine
+      command:
+        - sleep
+        - 1d
+      volumeMounts:
+        - mountPath: /configs
+          name: config-mount
+  volumes:
+    - name: config-mount
+      configMap:
+        name: hai-configmap
