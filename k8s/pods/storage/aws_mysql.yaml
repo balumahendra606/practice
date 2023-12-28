@@ -1,0 +1,41 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: aws-prsistent-vol
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: gp2
+  resources:
+    requests: 
+      storage: 1Gi
+---
+apiVersion: v1
+kind: Pod
+metadata: mypvc-mysql-pod
+spec:
+  containers:
+    - image: mysql:8.2
+      name: mysql-container
+      ports:
+        - containerPort: 3306
+          protocol: TCP
+      env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: rootroot
+        - name: MYSQL_DATABASE
+          value: mydb
+        - name: MYSQL_USER
+          value: baludevops
+        - name: MYSQL_PASSWORD
+          value: baludevops
+      volumeMounts:
+        - mountPath: /var/lib/mysql
+          name: my-vol
+  restartPolicy: OnFailure
+  volumes:
+    - name: my-vol
+      persistentVolumeClaim:
+        claimName: aws-prsistent-vol
+        readOnly: false
