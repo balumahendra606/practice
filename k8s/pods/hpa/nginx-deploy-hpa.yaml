@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deploy
+spe:
+  minReadySeconds: 10
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  template:
+    metadata:
+      name: nginx-deploy
+      labels:
+        app: nginx
+        version: "1.23"
+    spec:
+      containers:
+        - image: nginx:1.23
+          name: nginx-continaer
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          livenessProbe: 
+            tcpSocket:
+              port: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service-lb
+spec:
+  type: LoadBalancer
+  selector:
+    app: nginx
+  ports:
+    - name: webport
+      targetPort: 80
+      port: 32000
+
+                 
