@@ -1,0 +1,14 @@
+{
+    "version" : "2012-10-17",
+    "statement" : [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "DescribeJob:*",
+                "DescribeMultiRegionAccessPointOperation:*",
+                "GetAccessGrant:*"
+            ]
+        }
+    ]
+
+}
